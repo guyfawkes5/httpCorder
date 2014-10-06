@@ -1,0 +1,16 @@
+{
+  "name": "httpCorder",
+  "version": "0.0.0",
+  "description": "HTTP Recording Proxy",
+  "main": "app.js",
+  "author": {
+    "name": "Michael",
+    "email": "mikewalsh2@gmail.com"
+  },
+  "dependencies": {
+    "http-proxy": "^1.5.1",
+    "mongodb": "^1.4.17",
+    "mongoose": "^3.9.2",
+    "q": "^1.0.1"
+  }
+}

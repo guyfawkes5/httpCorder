@@ -1,0 +1,5 @@
+﻿{
+    "port": 8080,
+    "targetURI": "",
+    "dbURI": "mongodb://localhost/test"
+}
