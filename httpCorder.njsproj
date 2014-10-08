@@ -36,13 +36,16 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Compile Include="class\BodyWritable.js" />
-    <Compile Include="db.js" />
-    <Compile Include="schema.js" />
+    <Compile Include="db\db.js" />
+    <Compile Include="db\schema.js" />
+    <Compile Include="ext\http.js" />
     <Compile Include="proxy.js" />
     <Compile Include="utils.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="class\" />
+    <Folder Include="db\" />
+    <Folder Include="ext\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
 </Project>

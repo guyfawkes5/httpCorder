@@ -1,13 +1,10 @@
 var util = require('util');
 
 module.exports = {
+    alias: alias,
 	apply: apply,
 	each: each,
-	filter: filter,
-	equals: equals,
-	isEmptyObject: isEmptyObject,
-	clone: clone,
-	filterIn: filterIn
+	filter: filter
 };
 
 function each(iter, fn) {
@@ -51,54 +48,8 @@ function filter(obj, props) {
 	return filtered;
 }
 
-function equals(first, second) {
-	second = clone(second);
-	for (var prop in first) {
-		if (hasOwnProperty.call(first, prop)) {
-			if (first[prop] !== second[prop]) {
-				return false;
-			} else {
-				delete second[prop];
-			}
-		}
-	}
-	return isEmptyObject(second);
-}
-
-function isEmptyObject(obj) {
-	for (var key in obj) {
-        if (hasOwnProperty.call(obj, key)) {
-        	return false;
-        }
-    }
-	return true;
-}
-
-function clone(obj) {
-	var cloneObj = obj.constructor(),
-		key;
-	if (obj === null || typeof(obj) !== 'object') {
-        return obj;
-	}
-    for (key in obj) {
-    	cloneObj[key] = clone(obj[key]);
-    }
-    return cloneObj;
-}
-
-function filterIn(obj, filter) {
-	var filtered = {};
-	each(filter, function(name) {
-		if (obj[name]) {
-			filtered[name] = obj[name];
-		}
-	});
-	return filtered;
-}
-
-function filterOut(obj, filter) {
-	each(filter, function(name) {
-		delete obj[name];
-	});
-	return obj;
+function alias(obj, props) {
+    each(props, function (prop) {
+        obj[props[prop]] = obj[prop];
+    });
 }

@@ -1,5 +1,5 @@
 ﻿{
     "port": 8080,
-    "targetURI": "",
+    "targetURI": "https://www.google.ie",
     "dbURI": "mongodb://localhost/test"
 }

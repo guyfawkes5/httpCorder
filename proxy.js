@@ -1,15 +1,19 @@
 var settings = require('./settings.json'),
 
     httpProxy = require('http-proxy'),
-    proxy = httpProxy.createServer({
-        target: settings.targetURI
-    }),
 	
-    db = require('./db'),
-    utils = require('./utils.js');
+    db = require('./db/db.js'),
+    utils = require('./utils.js'),
+
+    proxy,
+    protocol = /http(s)?:\/\//;
+
+proxy = httpProxy.createServer({
+    target: settings.targetURI
+});
 
 module.exports = function (request, response) {
-    request.headers.host = request.headers.host.replace(/http(s)?:\/\//, '');
+    request.headers.host = getTargetHost();
     proxy.web(request, response);
 };
 
@@ -17,7 +21,11 @@ proxy.on('proxyRes', function (response) {
     var data = {
         request: response.req,
         response: response
-    };
-    var dbStream = db.getWritableStream(data);
+    },
+        dbStream = db.getWritableStream(data, response);
     response.pipe(dbStream);
 });
+
+function getTargetHost() {
+    return settings.targetURI.replace(protocol, '');
+}
