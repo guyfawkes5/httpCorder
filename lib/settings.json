@@ -1,5 +1,10 @@
 ﻿{
     "port": 8080,
     "targetURI": "https://www.google.ie",
-    "dbURI": "mongodb://localhost/test"
+    "dbURI": "mongodb://localhost/test",
+    "requestMask": {
+        "query": {
+            "zx": false
+        }
+    }
 }
