@@ -1,12 +1,17 @@
 ﻿{
-    "port": 7070,
-    "targetURI": "https://www.google.ie",
-    "dbURI": "mongodb://localhost/test",
-    "proxy": true,
-    "requestMask": {
+    "server": {
+      "port": 80,
+      "targetURI": "https://www.google.ie",
+      "dbURI": "mongodb://localhost/test",
+      "proxy": true,
+      "requestMask": {
         "query": {
-            "zx": false,
-            "psi": false
+          "zx": false,
+          "psi": false
         }
+      }
+    },
+    "ui": {
+      "port": 7070
     }
 }

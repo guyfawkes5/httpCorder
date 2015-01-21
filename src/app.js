@@ -5,13 +5,14 @@ var settings = require('./settings.json'),
     db = require('./db/db.js'),
     proxy = require('./proxy/proxy.js'),
 
-    app = express(),
+    proxyApp = express(),
+    interfaceApp = express(),
 
-    router = express.Router();
+    proxyRouter = express.Router();
 
 require('./ext/http.js');
 
-router.use(function(req, res, next) {
+proxyRouter.use(function(req, res, next) {
     db.has(req).then(function(storedResponse) {
         console.log('Stored response ' + req.url);
         res.status(storedResponse.statusCode).header(storedResponse.headers);
@@ -19,24 +20,29 @@ router.use(function(req, res, next) {
     }, next);
 });
 
-router.use(function(req, res, next) {
+proxyRouter.use(function(req, res, next) {
     console.log('Proxying for ' + req.url);
-    if (settings.proxy) {
+    if (settings.server.req) {
         proxy.web(req, res);
     } else {
         res.status(404).end();
     }
 });
 
-app.use(router);
+proxyApp.use(proxyRouter);
+
+interfaceApp.use(express.static(__dirname + '/static'));
 
 proxy.onResponse(function(req, res) {
     var dbStream = db.getWritableStream(req, res);
     res.pipe(dbStream);
 });
 
-db.connect(settings.dbURI, function() {
-    app.listen(settings.port, function() {
-        console.log('Listening on localhost:' + settings.port);
+db.connect(settings.server.dbURI, function() {
+    proxyApp.listen(settings.server.port, function() {
+        console.log('Listening on localhost:' + settings.server.port);
+    });
+    interfaceApp.listen(settings.ui.port, function() {
+        console.log('UI listening on localhost:' + settings.ui.port);
     });
 });
