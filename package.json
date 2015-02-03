@@ -8,10 +8,10 @@
     "email": "mikewalsh2@gmail.com"
   },
   "dependencies": {
-    "express": "^4.10.1",
-    "http-proxy": "^1.5.1",
-    "mongodb": "^1.4.17",
-    "mongoose": "^3.9.4",
-    "q": "^1.0.1"
+    "express": "4.11.2",
+    "http-proxy": "1.8.1",
+    "mongodb": "1.4.30",
+    "mongoose": "3.8.22",
+    "q": "1.1.2"
   }
 }
