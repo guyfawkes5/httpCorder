@@ -6,7 +6,7 @@ var settings = require('../settings.json'),
 
     protocol = /http(s)?:\/\//;
     proxy = httpProxy.createServer({
-        target: settings.server.targetURI,
+        target: settings.targetURI,
         secure: false
     });
 
@@ -27,5 +27,5 @@ module.exports = {
 };
 
 function getTargetHost() {
-    return settings.server.targetURI.replace(protocol, '');
+    return settings.targetURI.replace(protocol, '');
 }

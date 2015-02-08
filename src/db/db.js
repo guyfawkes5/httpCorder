@@ -35,7 +35,7 @@ module.exports = {
 		mongoose.connect(address);
 	},
 	has: function(req) {
-		var filteredRequest = req.parseURL().mask(settings.server.requestMask).toQuery(schema, 'request'),
+		var filteredRequest = req.parseURL().mask(settings.requestMask).toQuery(schema, 'request'),
 			query = Exchange.findOne(filteredRequest),
 			has = Q.defer();
 		query.exec(function (err, match) {
@@ -52,7 +52,7 @@ module.exports = {
 		return has.promise;
 	},
 	getWritableStream: function(req, res) {
-		var maskedReq = req.parseURL().mask(settings.server.requestMask),
+		var maskedReq = req.parseURL().mask(settings.requestMask),
 			schemaData = {
 				request: utils.filter(maskedReq, schema.request, 0),
 				response: utils.filter(res, schema.response, 0)

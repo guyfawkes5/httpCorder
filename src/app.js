@@ -5,8 +5,7 @@ var settings = require('./settings.json'),
     db = require('./db/db.js'),
     proxy = require('./proxy/proxy.js'),
 
-    proxyApp = express(),
-    interfaceApp = express(),
+    app = express(),
 
     proxyRouter = express.Router();
 
@@ -29,20 +28,15 @@ proxyRouter.use(function(req, res, next) {
     }
 });
 
-proxyApp.use(proxyRouter);
-
-interfaceApp.use(express.static(__dirname + '/static'));
+app.use(proxyRouter);
 
 proxy.onResponse(function(req, res) {
     var dbStream = db.getWritableStream(req, res);
     res.pipe(dbStream);
 });
 
-db.connect(settings.server.dbURI, function() {
-    proxyApp.listen(settings.server.port, function() {
-        console.log('Listening on localhost:' + settings.server.port);
-    });
-    interfaceApp.listen(settings.ui.port, function() {
-        console.log('UI listening on localhost:' + settings.ui.port);
+db.connect(settings.dbURI, function() {
+    app.listen(settings.port, function() {
+        console.log('Listening on localhost:' + settings.port);
     });
 });
