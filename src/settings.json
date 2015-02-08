@@ -1,6 +1,6 @@
 ﻿{
     "server": {
-      "port": 80,
+      "port": 8080,
       "targetURI": "https://www.google.ie",
       "dbURI": "mongodb://localhost/test",
       "proxy": true,
